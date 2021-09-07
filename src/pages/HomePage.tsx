@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { Container, Form, Button, Input } from "semantic-ui-react";
 import TopPage from "./TopPage";
 
-function HomePage() {
+function HomePage(): ReactElement {
+  //State for the input value
   let [inputValue, setInputValue] = useState<string>("");
+  // State for the shortened Url
   let [shortened, setShortened] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
@@ -44,7 +46,7 @@ function HomePage() {
     try {
       // If the URL object is created successfully,
       // and the URL has a '.' in it, then it is considered valid
-      // Note: This prevents localhost from being accepted.
+      // NOTE: This prevents localhost from being accepted.
       return new URL(url).hostname.includes(".");
     } catch {
       return false;
