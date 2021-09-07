@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ReactElement, useEffect, useState } from "react";
-import { Container, Header, Table } from "semantic-ui-react";
+import { Container, Header, Placeholder, Table } from "semantic-ui-react";
 
 interface Props {
   num: number;
@@ -44,6 +44,9 @@ export default function TopPage(props: Props): ReactElement {
             </Table.Row>
           </Table.Header>
           <Table.Body>
+            {/* Display placeholder if urlInfo is not loaded yet */}
+            {urlInfo.length === 0 ? <TablePlaceholder /> : null}
+            {/* Display top n links */}
             {urlInfo.map((obj, index) => {
               return (
                 <Table.Row key={obj.short_url}>
@@ -64,5 +67,32 @@ export default function TopPage(props: Props): ReactElement {
         </Table>
       </Container>
     </div>
+  );
+}
+
+function TablePlaceholder(): ReactElement {
+  return (
+    <Table.Row key={1}>
+      <Table.Cell>
+        <Placeholder>
+          <Placeholder.Line length="medium" />
+        </Placeholder>
+      </Table.Cell>
+      <Table.Cell>
+        <Placeholder>
+          <Placeholder.Line length="medium" />
+        </Placeholder>
+      </Table.Cell>
+      <Table.Cell>
+        <Placeholder>
+          <Placeholder.Line length="medium" />
+        </Placeholder>
+      </Table.Cell>
+      <Table.Cell>
+        <Placeholder>
+          <Placeholder.Line length="medium" />
+        </Placeholder>
+      </Table.Cell>
+    </Table.Row>
   );
 }
