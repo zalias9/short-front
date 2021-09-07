@@ -21,4 +21,4 @@ npm i
 npm start
 ```
 
-**NOTE: The shortener will NOT ACCEPT URLs without a TLD (.com etc). `localhost` and `localhost:3000` etc. won't work be accepted**
+**NOTE: The shortener will NOT ACCEPT URLs without a TLD (Must have .com etc). `localhost` and `localhost:3000` etc. won't be accepted**
