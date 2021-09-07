@@ -7,14 +7,14 @@ function HomePage(): ReactElement {
   //State for the input value
   let [inputValue, setInputValue] = useState<string>("");
   // State for the shortened Url
-  let [shortened, setShortened] = useState<string>("");
+  let [shortUrl, setShortUrl] = useState<string>("");
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     // If a shortened value already exists, resets the page to take in a new long url.
-    if (shortened) {
+    if (shortUrl) {
       setInputValue("");
-      setShortened("");
+      setShortUrl("");
       return;
     }
     // If shortened Url does not exist, validate and call API to create short Url.
@@ -34,7 +34,7 @@ function HomePage(): ReactElement {
         .post(`${process.env.REACT_APP_BACKEND}/shorten`, { url })
         .then((response) => {
           // Set shortened link
-          setShortened(response.data.short_url);
+          setShortUrl(response.data.short_url);
           setInputValue(url);
         });
     } else {
@@ -66,17 +66,17 @@ function HomePage(): ReactElement {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setInputValue(e.target.value)
               }
-              readOnly={shortened}
+              readOnly={shortUrl}
             />
             <Button
               type="submit"
-              color={!shortened ? "orange" : "blue"}
-              content={!shortened ? "Shorten!" : "Again!"}
+              color={!shortUrl ? "orange" : "blue"}
+              content={!shortUrl ? "Shorten!" : "Again!"}
             />
           </Form.Group>
         </Form>
         <Container align="center">
-          {shortened ? (
+          {shortUrl ? (
             <Input
               fluid
               action={{
@@ -84,13 +84,13 @@ function HomePage(): ReactElement {
                 color: "orange",
                 onClick: () => {
                   navigator.clipboard.writeText(
-                    `${process.env.REACT_APP_FRONTEND}/${shortened}`
+                    `${process.env.REACT_APP_FRONTEND}/${shortUrl}`
                   );
                 },
               }}
               labelPosition="left"
               label="ShortUrl"
-              value={`${process.env.REACT_APP_FRONTEND}/${shortened}`}
+              value={`${process.env.REACT_APP_FRONTEND}/${shortUrl}`}
               readOnly
             />
           ) : null}
