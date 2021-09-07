@@ -1,6 +1,6 @@
 import axios from "axios";
 import { ReactElement, useState } from "react";
-import { Container, Form, Button, Input } from "semantic-ui-react";
+import { Container, Form, Button, Input, Grid } from "semantic-ui-react";
 import TopPage from "./TopPage";
 
 function HomePage(): ReactElement {
@@ -57,44 +57,48 @@ function HomePage(): ReactElement {
     <div>
       <br />
       <Container>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group>
-            <Form.Input
-              width={16}
-              placeholder="Enter a long url"
-              value={inputValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setInputValue(e.target.value)
-              }
-              readOnly={shortUrl}
-            />
-            <Button
-              type="submit"
-              color={!shortUrl ? "orange" : "blue"}
-              content={!shortUrl ? "Shorten!" : "Again!"}
-            />
-          </Form.Group>
-        </Form>
-        <Container align="center">
-          {shortUrl ? (
-            <Input
-              fluid
-              action={{
-                content: "Copy",
-                color: "orange",
-                onClick: () => {
-                  navigator.clipboard.writeText(
-                    `${process.env.REACT_APP_FRONTEND}/${shortUrl}`
-                  );
-                },
-              }}
-              labelPosition="left"
-              label="ShortUrl"
-              value={`${process.env.REACT_APP_FRONTEND}/${shortUrl}`}
-              readOnly
-            />
-          ) : null}
-        </Container>
+        <Grid columns="equal" verticalAlign="middle">
+          <Grid.Column></Grid.Column>
+          <Grid.Column width={10}>
+            <Form onSubmit={handleSubmit}>
+              <Form.Input
+                width={16}
+                placeholder="Enter a long url"
+                value={inputValue}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setInputValue(e.target.value)
+                }
+                readOnly={shortUrl}
+              />
+              <Button
+                fluid
+                type="submit"
+                color={!shortUrl ? "orange" : "blue"}
+                content={!shortUrl ? "Shorten!" : "Shorten Another!"}
+              />
+            </Form>
+            <br />
+            {shortUrl ? (
+              <Input
+                fluid
+                action={{
+                  content: "Copy",
+                  color: "orange",
+                  onClick: () => {
+                    navigator.clipboard.writeText(
+                      `${process.env.REACT_APP_FRONTEND}/${shortUrl}`
+                    );
+                  },
+                }}
+                labelPosition="left"
+                label="ShortUrl"
+                value={`${process.env.REACT_APP_FRONTEND}/${shortUrl}`}
+                readOnly
+              />
+            ) : null}
+          </Grid.Column>
+          <Grid.Column></Grid.Column>
+        </Grid>
       </Container>
       <br />
       <TopPage num={10} />
