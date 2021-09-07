@@ -1,6 +1,8 @@
 import React from "react";
 import { Container, Grid, Header, Label, Divider } from "semantic-ui-react";
-
+/**
+ * Sitewide Header appears on every page.
+ */
 export default function SiteHeader() {
   return (
     <Container textAlign="center">

@@ -1,9 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Loader, Message } from "semantic-ui-react";
 
-function RedirectPage() {
+/**
+ * This page is displayed when the user clicks a shortlink.
+ * It simulates a 2 second delay before forwarding the user to the original Url.
+ */
+function RedirectPage(): ReactElement {
   let { shortUrl } = useParams<{ shortUrl: string }>();
   let [error, setError] = useState("");
 
@@ -18,7 +22,7 @@ function RedirectPage() {
           );
         }
       });
-    }, 2000); // TODO: Remove this, simulates redirection.
+    }, 2000); // Remove this, simulates redirection.
   });
 
   return (

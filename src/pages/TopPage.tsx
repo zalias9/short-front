@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Container, Header, Table } from "semantic-ui-react";
 
 interface Props {
@@ -11,8 +11,10 @@ interface TopResults {
   short_url: string;
   visits: number;
 }
-
-export default function TopPage(props: Props) {
+/**
+ * This page displays the top "num" number of Urls sorted by total visits.
+ */
+export default function TopPage(props: Props): ReactElement {
   let [urlInfo, setUrlInfo] = useState<TopResults[]>([]);
 
   useEffect(() => {
