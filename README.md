@@ -21,4 +21,8 @@ npm i
 npm start
 ```
 
+You can visit the site now at `http://localhost:3000`
+
+**NOTE: The first time you run the app, you will see a perpetually loading table in the "Top N Visits" Components. You can still use the "Shorten" function. Once you have added at least one short Url, it will load the data.**
+
 **NOTE: The shortener will NOT ACCEPT URLs without a TLD (Must have .com etc). `localhost` and `localhost:3000` etc. won't be accepted**
