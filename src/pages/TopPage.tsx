@@ -69,6 +69,8 @@ export default function TopPage(props: Props): ReactElement {
             })}
           </Table.Body>
         </Table>
+        <br />
+        <br />
       </Container>
     </div>
   );

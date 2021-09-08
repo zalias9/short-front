@@ -1,13 +1,22 @@
 import axios from "axios";
 import { ReactElement, useState } from "react";
-import { Container, Form, Button, Input, Grid } from "semantic-ui-react";
+import {
+  Container,
+  Form,
+  Button,
+  Input,
+  Grid,
+  Loader,
+} from "semantic-ui-react";
 import TopPage from "./TopPage";
 
 function HomePage(): ReactElement {
-  //State for the input value
+  // State for the input value
   let [inputValue, setInputValue] = useState<string>("");
   // State for the shortened Url
   let [shortUrl, setShortUrl] = useState<string>("");
+  // State for short Url loading.
+  let [loadingShortUrl, setLoadingShortUrl] = useState<boolean>(false);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -30,12 +39,14 @@ function HomePage(): ReactElement {
     //Check URL String Validity
     if (isUrlValid(url)) {
       // Call API method
+      setLoadingShortUrl(true);
       axios
         .post(`${process.env.REACT_APP_BACKEND}/shorten`, { url })
         .then((response) => {
           // Set shortened link
           setShortUrl(response.data.short_url);
           setInputValue(url);
+          setLoadingShortUrl(false);
         });
     } else {
       alert("This is not a Valid URL");
@@ -78,6 +89,7 @@ function HomePage(): ReactElement {
               />
             </Form>
             <br />
+            {loadingShortUrl ? <Loader active inline="centered" /> : null}
             {shortUrl ? (
               <Input
                 fluid
