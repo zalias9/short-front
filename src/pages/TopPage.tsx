@@ -16,12 +16,16 @@ interface TopResults {
  */
 export default function TopPage(props: Props): ReactElement {
   let [urlInfo, setUrlInfo] = useState<TopResults[]>([]);
+  let [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACKEND}/top/${props.num}`)
-      .then((res) => setUrlInfo(res.data));
-  });
+      .then((res) => {
+        setLoading(false);
+        setUrlInfo(res.data);
+      });
+  }, [props.num]);
 
   return (
     <div>
@@ -45,7 +49,7 @@ export default function TopPage(props: Props): ReactElement {
           </Table.Header>
           <Table.Body>
             {/* Display placeholder if urlInfo is not loaded yet */}
-            {urlInfo.length === 0 ? <TablePlaceholder /> : null}
+            {loading ? <TablePlaceholder /> : null}
             {/* Display top n links */}
             {urlInfo.map((obj, index) => {
               return (
